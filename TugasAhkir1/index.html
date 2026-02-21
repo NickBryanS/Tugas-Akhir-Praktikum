@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistem Manajemen Buku - Platform digital untuk mengelola koleksi buku Anda dengan mudah">
+    <meta name="keywords" content="buku, manajemen, sistem informasi, perpustakaan">
+    <meta name="author" content="Praktikum SIWEB">
+    
+    <title>Sistem Manajemen Buku</title>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#home">
+                <i class="bi bi-book-half"></i>
+                BookManager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">
+                            <i class="bi bi-house-fill"></i> Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="books.html">
+                            <i class="bi bi-collection-fill"></i> Koleksi Buku
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-book.html">
+                            <i class="bi bi-plus-circle-fill"></i> Tambah Buku
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>
+                <i class="bi bi-book"></i> Sistem Manajemen Buku
+            </h1>
+            <p>Kelola koleksi buku Anda dengan platform yang mudah, cepat, dan aman. Terintegrasi dengan teknologi terkini untuk pengalaman terbaik.</p>
+            <a href="add-book.html" class="hero-btn">
+                <i class="bi bi-plus-lg"></i> Mulai Sekarang
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <!-- About Section -->
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-info-circle"></i> Tentang Kami
+                </h4>
+                <p>Sistem Manajemen Buku adalah platform digital yang dirancang untuk memudahkan pengelolaan koleksi buku di perpustakaan atau organisasi Anda.</p>
+                <div class="footer-social">
+                    <a href="#" title="Facebook" aria-label="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" title="Twitter" aria-label="Twitter">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="#" title="Instagram" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-link-45deg"></i> Tautan Cepat
+                </h4>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="books.html">Koleksi Buku</a></li>
+                    <li><a href="add-book.html">Tambah Buku</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-resources"></i> Sumber Daya
+                </h4>
+                <ul>
+                    <li><a href="#">Panduan Pengguna</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-telephone-fill"></i> Kontak Kami
+                </h4>
+                <ul class="footer-contact-list">
+                    <li class="footer-contact-item">
+                        <i class="bi bi-envelope-fill"></i> 
+                        <a href="mailto:info@bookmanager.com">info@bookmanager.com</a>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i class="bi bi-telephone-fill"></i> 
+                        <a href="tel:+62123456789">+62 (123) 456-789</a>
+                    </li>
+                    <li>
+                        <i class="bi bi-geo-alt-fill"></i> 
+                        Jl. Teknologi No. 123, Jakarta, Indonesia
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Sistem Manajemen Buku. Semua hak dilindungi.</p>
+            <p>Dikembangkan dengan <i class="bi bi-heart-fill heart-icon"></i> oleh Tim Praktikum SIWEB</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function updateActiveNavLink() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === 'index.html' || href === window.location.pathname.split('/').pop()) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Update active nav link on page load
+        document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
+        console.log('%cSelamat datang di Sistem Manajemen Buku!', 'color: #3498db; font-size: 18px; font-weight: bold;');
+        console.log('%cVersión: 1.0.0', 'color: #27ae60; font-size: 14px;');
+    </script>
+</body>
+</html>

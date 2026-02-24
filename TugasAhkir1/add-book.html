@@ -49,7 +49,7 @@
     </nav>
 
     <main>
-        <section id="form" class="form-section" style="padding-top: 40px;">
+        <section id="form" class="form-section">
             <div class="container-fluid px-4">
                 <div class="section-title mb-5">
                     <h2>Tambah Buku Baru</h2>
@@ -58,7 +58,8 @@
 
                 <div class="form-container">
                     <div class="success-message" id="successMessage">
-                        <i class="bi bi-check-circle-fill"></i> Buku berhasil ditambahkan ke sistem!
+                        <i class="bi bi-check-circle-fill"></i> Buku berhasil ditambahkan ke sistem! 
+                        <a href="books.html" style="color: #fff; text-decoration: underline; font-weight: 700;">Lihat Koleksi Buku &rarr;</a>
                     </div>
 
                     <form id="bookForm" novalidate>
@@ -122,6 +123,28 @@
                                     <option value="Lainnya">Lainnya</option>
                                 </select>
                                 <div class="error-message">Silakan pilih kategori</div>
+                            </div>
+                        </div>
+
+                        <!-- Cover Buku -->
+                        <div class="form-group">
+                            <label for="bookCover">
+                                <i class="bi bi-image-fill"></i> Cover Buku
+                            </label>
+                            <div class="cover-upload-area" id="coverUploadArea">
+                                <div class="cover-preview" id="coverPreview">
+                                    <img id="coverPreviewImg" src="" alt="Preview Cover">
+                                    <button type="button" class="cover-remove-btn" id="removeCover" title="Hapus Cover">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                                <div class="cover-placeholder" id="coverPlaceholder">
+                                    <i class="bi bi-cloud-arrow-up-fill"></i>
+                                    <p>Klik atau seret gambar cover ke sini</p>
+                                    <small>Format: JPG, PNG, WEBP (Maks. 2MB)</small>
+                                </div>
+                                <input type="file" class="cover-input" id="bookCover" name="bookCover" 
+                                       accept="image/jpeg,image/png,image/webp">
                             </div>
                         </div>
 
@@ -246,8 +269,8 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; 2024 Sistem Manajemen Buku. Semua hak dilindungi.</p>
-            <p>Dikembangkan dengan <i class="bi bi-heart-fill heart-icon"></i> oleh Tim Praktikum SIWEB</p>
+            <p>&copy;Sistem Manajemen Buku. Semua bisa membaca.</p>
+            <p>Dikembangkan dengan <i class="bi bi-heart-fill heart-icon"></i> oleh Nick Bryan Andos Sianturi</p>
         </div>
     </footer>
 
@@ -256,8 +279,67 @@
     <script>
         const bookForm = document.getElementById('bookForm');
         const successMessage = document.getElementById('successMessage');
+        let coverBase64 = '';
 
-        // Form Validation Function
+        const coverUploadArea = document.getElementById('coverUploadArea');
+        const coverInput = document.getElementById('bookCover');
+        const coverPreview = document.getElementById('coverPreview');
+        const coverPreviewImg = document.getElementById('coverPreviewImg');
+        const coverPlaceholder = document.getElementById('coverPlaceholder');
+        const removeCoverBtn = document.getElementById('removeCover');
+
+        coverUploadArea.addEventListener('click', function(e) {
+            if (e.target.closest('#removeCover')) return;
+            coverInput.click();
+        });
+
+        coverInput.addEventListener('change', function(e) {
+            handleCoverFile(e.target.files[0]);
+        });
+
+        // Drag & Drop
+        coverUploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
+        coverUploadArea.addEventListener('dragleave', function() {
+            this.classList.remove('drag-over');
+        });
+        coverUploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file) handleCoverFile(file);
+        });
+
+        removeCoverBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            coverBase64 = '';
+            coverInput.value = '';
+            coverPreview.style.display = 'none';
+            coverPlaceholder.style.display = 'flex';
+        });
+
+        function handleCoverFile(file) {
+            if (!file) return;
+            if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
+                alert('Format file tidak didukung. Gunakan JPG, PNG, atau WEBP.');
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Ukuran file terlalu besar. Maksimal 2MB.');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                coverBase64 = e.target.result;
+                coverPreviewImg.src = coverBase64;
+                coverPreview.style.display = 'block';
+                coverPlaceholder.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
         function validateForm() {
             let isValid = true;
             const fields = [
@@ -295,30 +377,41 @@
             return isValid;
         }
 
-        // Form Submission Handler
         bookForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             if (validateForm()) {
-                // Get Form Data
-                const formData = {
-                    title: document.getElementById('bookTitle').value,
-                    author: document.getElementById('bookAuthor').value,
-                    publisher: document.getElementById('bookPublisher').value,
+                // Build book object
+                const newBook = {
+                    id: Date.now(),
+                    title: document.getElementById('bookTitle').value.trim(),
+                    author: document.getElementById('bookAuthor').value.trim(),
+                    publisher: document.getElementById('bookPublisher').value.trim(),
                     year: document.getElementById('bookYear').value,
                     category: document.getElementById('bookCategory').value,
-                    description: document.getElementById('bookDescription').value,
-                    copy: document.getElementById('bookCopy').value,
-                    isbn: document.getElementById('bookISBN').value
+                    description: document.getElementById('bookDescription').value.trim(),
+                    copy: parseInt(document.getElementById('bookCopy').value),
+                    isbn: document.getElementById('bookISBN').value.trim(),
+                    cover: coverBase64,
+                    status: 'Tersedia',
+                    addedAt: new Date().toISOString()
                 };
 
-                console.log('Data Buku yang Ditambahkan:', formData);
+                // Save to localStorage
+                const books = JSON.parse(localStorage.getItem('bookCollection') || '[]');
+                books.push(newBook);
+                localStorage.setItem('bookCollection', JSON.stringify(books));
+
+                console.log('Data Buku yang Ditambahkan:', newBook);
 
                 // Show Success Message
                 successMessage.classList.add('show');
 
-                // Reset Form
+                // Reset Form & cover preview
                 bookForm.reset();
+                coverBase64 = '';
+                coverPreview.style.display = 'none';
+                coverPlaceholder.style.display = 'flex';
 
                 // Hide Success Message after 5 seconds
                 setTimeout(() => {
@@ -330,8 +423,7 @@
             }
         });
 
-        // Real-time Validation on Input
-        const inputs = bookForm.querySelectorAll('input, textarea, select');
+        const inputs = bookForm.querySelectorAll('input:not(#bookCover), textarea, select');
         inputs.forEach(input => {
             input.addEventListener('blur', function() {
                 const formGroup = this.closest('.form-group');

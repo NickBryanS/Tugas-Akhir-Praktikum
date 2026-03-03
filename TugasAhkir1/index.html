@@ -60,7 +60,6 @@
 
     <footer>
         <div class="footer-content">
-            <!-- About Section -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-info-circle"></i> Tentang Kami
@@ -81,8 +80,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Quick Links -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-link-45deg"></i> Tautan Cepat
@@ -93,8 +90,6 @@
                     <li><a href="add-book.html">Tambah Buku</a></li>
                 </ul>
             </div>
-
-            <!-- Resources -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-resources"></i> Sumber Daya
@@ -106,8 +101,6 @@
                     <li><a href="#">Syarat & Ketentuan</a></li>
                 </ul>
             </div>
-
-            <!-- Contact -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-telephone-fill"></i> Kontak Kami
@@ -128,17 +121,17 @@
                 </ul>
             </div>
         </div>
-
-        <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; 2024 Sistem Manajemen Buku. Semua hak dilindungi.</p>
-            <p>Dikembangkan dengan <i class="bi bi-heart-fill heart-icon"></i> oleh Tim Praktikum SIWEB</p>
+            <p>&copy; 2024 Sistem Manajemen Buku. Semua bisa membaca.</p>
+            <p>Dikembangkan dengan sepenuh hati oleh Nick Bryan Andos Sianturi</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Js/script.js"></script>
     
     <script>
+        // Mengatur navigasi link aktif sesuai halaman yang sedang dibuka
         function updateActiveNavLink() {
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -149,10 +142,10 @@
                 }
             });
         }
-
-        // Update active nav link on page load
+        // Dipanggil saat halaman selesai dimuat
         document.addEventListener('DOMContentLoaded', updateActiveNavLink);
 
+        // Log informasi versi di console
         console.log('%cSelamat datang di Sistem Manajemen Buku!', 'color: #3498db; font-size: 18px; font-weight: bold;');
         console.log('%cVersión: 1.0.0', 'color: #27ae60; font-size: 14px;');
     </script>

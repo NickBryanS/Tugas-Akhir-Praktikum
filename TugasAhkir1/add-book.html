@@ -63,7 +63,6 @@
                     </div>
 
                     <form id="bookForm" novalidate>
-                        <!-- Judul Buku -->
                         <div class="form-group">
                             <label for="bookTitle">
                                 <i class="bi bi-book-fill"></i> Judul Buku <span class="required-marker">*</span>
@@ -72,10 +71,7 @@
                                    placeholder="Masukkan judul buku" required>
                             <div class="error-message">Judul buku tidak boleh kosong</div>
                         </div>
-
-                        <!-- Penulis dan Penerbit -->
                         <div class="form-row">
-                            <!-- Penulis -->
                             <div class="form-group">
                                 <label for="bookAuthor">
                                     <i class="bi bi-pen-fill"></i> Penulis <span class="required-marker">*</span>
@@ -84,8 +80,6 @@
                                        placeholder="Nama penulis" required>
                                 <div class="error-message">Nama penulis tidak boleh kosong</div>
                             </div>
-
-                            <!-- Penerbit -->
                             <div class="form-group">
                                 <label for="bookPublisher">
                                     <i class="bi bi-bookmark-fill"></i> Penerbit <span class="required-marker">*</span>
@@ -95,10 +89,7 @@
                                 <div class="error-message">Nama penerbit tidak boleh kosong</div>
                             </div>
                         </div>
-
-                        <!-- Tahun Terbit dan Kategori -->
                         <div class="form-row">
-                            <!-- Tahun Terbit -->
                             <div class="form-group">
                                 <label for="bookYear">
                                     <i class="bi bi-calendar-fill"></i> Tahun Terbit <span class="required-marker">*</span>
@@ -107,8 +98,6 @@
                                        placeholder="2024" min="1900" max="2100" required>
                                 <div class="error-message">Tahun terbit harus berupa angka antara 1900-2100</div>
                             </div>
-
-                            <!-- Kategori -->
                             <div class="form-group">
                                 <label for="bookCategory">
                                     <i class="bi bi-collection-fill"></i> Kategori <span class="required-marker">*</span>
@@ -125,30 +114,20 @@
                                 <div class="error-message">Silakan pilih kategori</div>
                             </div>
                         </div>
-
-                        <!-- Cover Buku -->
                         <div class="form-group">
                             <label for="bookCover">
                                 <i class="bi bi-image-fill"></i> Cover Buku
                             </label>
-                            <div class="cover-upload-area" id="coverUploadArea">
-                                <div class="cover-preview" id="coverPreview">
-                                    <img id="coverPreviewImg" src="" alt="Preview Cover">
-                                    <button type="button" class="cover-remove-btn" id="removeCover" title="Hapus Cover">
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </div>
-                                <div class="cover-placeholder" id="coverPlaceholder">
-                                    <i class="bi bi-cloud-arrow-up-fill"></i>
-                                    <p>Klik atau seret gambar cover ke sini</p>
-                                    <small>Format: JPG, PNG, WEBP (Maks. 2MB)</small>
-                                </div>
-                                <input type="file" class="cover-input" id="bookCover" name="bookCover" 
-                                       accept="image/jpeg,image/png,image/webp">
+                            <input type="file" class="form-control" id="bookCover" name="bookCover" 
+                                   accept="image/jpeg,image/png,image/webp">
+                            <small class="text-muted">Format: JPG, PNG, WEBP (Maks. 2MB)</small>
+                            <div class="cover-preview" id="coverPreview" style="display:none; margin-top:10px; position:relative; max-width:200px;">
+                                <img id="coverPreviewImg" src="" alt="Preview Cover" style="width:100%; border-radius:8px;">
+                                <button type="button" class="cover-remove-btn" id="removeCover" title="Hapus Cover">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </div>
-                        </div>
-
-                        <!-- Deskripsi -->
+                        </input>
                         <div class="form-group">
                             <label for="bookDescription">
                                 <i class="bi bi-file-text-fill"></i> Deskripsi Buku <span class="required-marker">*</span>
@@ -157,10 +136,7 @@
                                       placeholder="Masukkan sinopsis atau deskripsi singkat tentang buku..." required></textarea>
                             <div class="error-message">Deskripsi buku tidak boleh kosong</div>
                         </div>
-
-                        <!-- Jumlah Salinan dan ISBN -->
                         <div class="form-row">
-                            <!-- Jumlah Salinan -->
                             <div class="form-group">
                                 <label for="bookCopy">
                                     <i class="bi bi-stack"></i> Jumlah Salinan <span class="required-marker">*</span>
@@ -169,8 +145,6 @@
                                        placeholder="Jumlah salinan" min="1" max="1000" required>
                                 <div class="error-message">Jumlah salinan harus angka positif</div>
                             </div>
-
-                            <!-- ISBN -->
                             <div class="form-group">
                                 <label for="bookISBN">
                                     <i class="bi bi-barcode"></i> ISBN
@@ -179,14 +153,10 @@
                                        placeholder="ISBN (opsional)">
                             </div>
                         </div>
-
-                        <!-- Note -->
                         <div class="form-note">
                             <i class="bi bi-info-circle-fill"></i>
                             <small><strong>Catatan:</strong> Kolom yang ditandai dengan asterisk (*) wajib diisi. Dapatkan ISBN dari penerbit atau sumber terpercaya lainnya.</small>
                         </div>
-
-                        <!-- Tombol Kirim -->
                         <button type="submit" class="form-button">
                             <i class="bi bi-check-lg"></i> Tambahkan Buku
                         </button>
@@ -198,7 +168,6 @@
 
     <footer>
         <div class="footer-content">
-            <!-- About Section -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-info-circle"></i> Tentang Kami
@@ -219,8 +188,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Quick Links -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-link-45deg"></i> Tautan Cepat
@@ -231,8 +198,6 @@
                     <li><a href="add-book.html">Tambah Buku</a></li>
                 </ul>
             </div>
-
-            <!-- Resources -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-resources"></i> Sumber Daya
@@ -244,8 +209,6 @@
                     <li><a href="#">Syarat & Ketentuan</a></li>
                 </ul>
             </div>
-
-            <!-- Contact -->
             <div class="footer-section">
                 <h4>
                     <i class="bi bi-telephone-fill"></i> Kontak Kami
@@ -266,60 +229,39 @@
                 </ul>
             </div>
         </div>
-
-        <!-- Footer Bottom -->
         <div class="footer-bottom">
             <p>&copy;Sistem Manajemen Buku. Semua bisa membaca.</p>
-            <p>Dikembangkan dengan <i class="bi bi-heart-fill heart-icon"></i> oleh Nick Bryan Andos Sianturi</p>
+            <p>Dikembangkan dengan sepenuh hati oleh Nick Bryan Andos Sianturi</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Mengambil dari form dan pesan sukses
         const bookForm = document.getElementById('bookForm');
         const successMessage = document.getElementById('successMessage');
         let coverBase64 = '';
 
-        const coverUploadArea = document.getElementById('coverUploadArea');
+        // Elemen untuk upload dan preview cover buku
         const coverInput = document.getElementById('bookCover');
         const coverPreview = document.getElementById('coverPreview');
         const coverPreviewImg = document.getElementById('coverPreviewImg');
-        const coverPlaceholder = document.getElementById('coverPlaceholder');
         const removeCoverBtn = document.getElementById('removeCover');
 
-        coverUploadArea.addEventListener('click', function(e) {
-            if (e.target.closest('#removeCover')) return;
-            coverInput.click();
-        });
-
+        // Event listener saat file cover dipilih
         coverInput.addEventListener('change', function(e) {
             handleCoverFile(e.target.files[0]);
         });
 
-        // Drag & Drop
-        coverUploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('drag-over');
-        });
-        coverUploadArea.addEventListener('dragleave', function() {
-            this.classList.remove('drag-over');
-        });
-        coverUploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('drag-over');
-            const file = e.dataTransfer.files[0];
-            if (file) handleCoverFile(file);
-        });
-
-        removeCoverBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
+        // Tombol hapus preview cover
+        removeCoverBtn.addEventListener('click', function() {
             coverBase64 = '';
             coverInput.value = '';
             coverPreview.style.display = 'none';
-            coverPlaceholder.style.display = 'flex';
         });
 
+        // Memproses file cover: validasi tipe & ukuran, lalu tampilkan preview
         function handleCoverFile(file) {
             if (!file) return;
             if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
@@ -335,11 +277,11 @@
                 coverBase64 = e.target.result;
                 coverPreviewImg.src = coverBase64;
                 coverPreview.style.display = 'block';
-                coverPlaceholder.style.display = 'none';
             };
             reader.readAsDataURL(file);
         }
 
+        // Memvalidasi semua field form sebelum submit
         function validateForm() {
             let isValid = true;
             const fields = [
@@ -377,11 +319,11 @@
             return isValid;
         }
 
+        // Handler submit form: validasi, simpan buku ke localStorage, reset form
         bookForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             if (validateForm()) {
-                // Build book object
                 const newBook = {
                     id: Date.now(),
                     title: document.getElementById('bookTitle').value.trim(),
@@ -396,33 +338,23 @@
                     status: 'Tersedia',
                     addedAt: new Date().toISOString()
                 };
-
-                // Save to localStorage
                 const books = JSON.parse(localStorage.getItem('bookCollection') || '[]');
                 books.push(newBook);
                 localStorage.setItem('bookCollection', JSON.stringify(books));
 
                 console.log('Data Buku yang Ditambahkan:', newBook);
-
-                // Show Success Message
                 successMessage.classList.add('show');
-
-                // Reset Form & cover preview
                 bookForm.reset();
                 coverBase64 = '';
                 coverPreview.style.display = 'none';
-                coverPlaceholder.style.display = 'flex';
-
-                // Hide Success Message after 5 seconds
                 setTimeout(() => {
                     successMessage.classList.remove('show');
                 }, 5000);
-
-                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
 
+        // Validasi real-time saat input kehilangan fokus (blur)
         const inputs = bookForm.querySelectorAll('input:not(#bookCover), textarea, select');
         inputs.forEach(input => {
             input.addEventListener('blur', function() {
@@ -450,6 +382,7 @@
             });
         });
 
+        // Mengatur navigasi link aktif sesuai halaman saat ini
         function updateActiveNavLink() {
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -461,10 +394,13 @@
             });
         }
 
+        // Panggil saat halaman selesai dimuat
         document.addEventListener('DOMContentLoaded', updateActiveNavLink);
 
+        // Log informasi versi di console
         console.log('%cSelamat datang di Tambah Buku!', 'color: #3498db; font-size: 18px; font-weight: bold;');
         console.log('%cVersión: 1.0.0', 'color: #27ae60; font-size: 14px;');
     </script>
+    <script src="Js/script.js"></script>
 </body>
 </html>

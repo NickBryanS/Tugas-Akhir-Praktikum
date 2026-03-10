@@ -1,0 +1,131 @@
+# Tugas Akhir 3 — Penjelasan Fitur Sistem Manajemen Buku (BookManager)
+
+## 1. Halaman Login (`controller/login.php`)
+
+- Kalau udah login, otomatis ke halaman utama (nggak perlu login ulang)
+- Ada fitur "Ingat Saya" — username tersimpan di cookie, jadi otomatis keisi
+- Kalau salah login, muncul pesan error (hilang sendiri setelah 4 detik)
+- Form: kolom username, password, checkbox Ingat Saya, tombol Masuk
+- Validasi JavaScript: kolom kosong nggak bisa dikirim
+- Keamanan: pakai `htmlspecialchars()` buat cegah serangan XSS
+
+---
+
+## 2. Proses Login (`controller/proses_login.php`)
+
+- Cuma bisa diakses lewat form login (POST), nggak bisa buka langsung di browser
+- Ngambil data username, password, dan status "Ingat Saya" dari form
+- Cocokkan username & password sama data yang udah ditentukan di kode (`bryan` / `bryan123`)
+- **Login berhasil** → simpan session + cookie (kalau centang Ingat Saya, berlaku 30 hari) → masuk halaman utama
+- **Login gagal** → simpan pesan error → balik ke halaman login
+
+---
+
+## 3. Logout (`controller/logout.php`)
+
+- Hapus semua data session (info login, username, dll)
+- Hapus cookie session (bikin masa berlakunya jadi expired)
+- Hancurin session di server
+- Redirect ke halaman login
+
+---
+
+## 4. Proteksi Halaman (Session Guard)
+
+- Semua halaman penting (`index.php`, `books.php`, `add-book.php`) dicek dulu: udah login belum?
+- Kalau belum login → langsung dilempar ke halaman login
+- Kodenya:
+```php
+session_start();
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: controller/login.php');
+    exit;
+}
+```
+
+---
+
+## 5. Halaman Beranda (`index.php`)
+
+- **Navbar**: menu navigasi (Beranda, Koleksi Buku, Tambah Buku, Logout) — responsive
+- **Hero Section**: judul sistem, deskripsi singkat, tombol "Mulai Sekarang" → ke halaman tambah buku
+- **Footer**: info sistem, link penting, ikon media sosial
+- **Tombol Logout** di navbar buat keluar
+
+---
+
+## 6. Halaman Koleksi Buku (`books.php`)
+
+- Tampil dalam bentuk **kartu (card)** — responsive (3 kolom di desktop, 2 di tablet, 1 di HP)
+- Setiap kartu: gambar cover, judul, penulis, deskripsi, stok, status, tahun terbit
+- Status: "Tersedia" (stok ada) atau "Dipinjam" (stok habis, tombol pinjam disabled)
+- Tombol **Pinjam** dan tombol **Wishlist** (ikon hati ❤️)
+
+---
+
+## 7. Halaman Tambah Buku (`add-book.php`)
+
+- Form input: Judul, Penulis, Penerbit, Tahun Terbit, Kategori (dropdown), Cover (upload + preview), Deskripsi
+- Semua kolom wajib diisi — kalau kosong muncul pesan error
+- Cover bisa di-preview langsung dan dihapus kalau salah pilih
+- Setelah berhasil tambah → muncul notifikasi sukses + link ke Koleksi Buku
+
+---
+
+## 8. JavaScript (`Js/script.js`)
+
+- **Dark/Light Mode**: ganti tema gelap/terang, pilihan disimpan di `localStorage` (tetap tersimpan walau browser ditutup)
+- **Wishlist**:
+  - Disimpan di `sessionStorage` (sementara, selama tab masih buka)
+  - Klik ikon hati ❤️ → tambah/hapus dari wishlist
+  - Ikon hati berubah (kosong ↔ penuh) sesuai status
+  - Badge di navbar nunjukin jumlah wishlist
+  - Ada modal popup buat lihat semua isi wishlist
+
+---
+
+## 9. Styling / CSS
+
+- `css/login.css` → tampilan halaman login (background gradasi, form, animasi)
+- `css/index.css` → tampilan beranda (hero section, navbar, footer)
+- `css/books.css` → tampilan koleksi buku (kartu, badge status)
+- `css/add-book.css` → tampilan form tambah buku (layout form, preview cover)
+- Tema: **gelap modern** — warna navy (`#1a1a2e`), cyan (`#00d2ff`), ungu (`#7b2ff7`), merah muda (`#e94560`)
+
+---
+
+## 10. Alur Kerja Sistem
+
+```
+Buka website → Cek login → Belum? → Login → Benar? → Masuk ke Halaman Utama
+                                              Salah? → Error → Balik ke Login
+                          Udah?  → Langsung ke Halaman Utama
+
+Di Halaman Utama → Koleksi Buku / Tambah Buku / Logout
+```
+
+Intinya: **Login → Akses fitur → Logout**.
+
+---
+
+## Struktur Folder — File-file Apa Aja yang Ada
+
+```
+TugasAhkir1/
+├── index.php              # Halaman utama (harus login dulu baru bisa buka)
+├── books.php              # Halaman daftar buku (harus login juga)
+├── add-book.php           # Halaman tambah buku baru (harus login juga)
+├── controller/
+│   ├── login.php          # Halaman form login (tempat masukin username & password)
+│   ├── proses_login.php   # File yang ngecek benar/salahnya login
+│   └── logout.php         # File yang ngurus proses logout
+├── css/
+│   ├── login.css          # Tampilan halaman login
+│   ├── index.css          # Tampilan halaman utama
+│   ├── books.css          # Tampilan halaman koleksi buku
+│   └── add-book.css       # Tampilan halaman tambah buku
+├── Js/
+│   └── script.js          # JavaScript (tema gelap/terang, wishlist, interaksi)
+└── assets/                # Folder gambar cover buku
+```
+

@@ -1,0 +1,465 @@
+<?php
+session_start();
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: controller/login.php');
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistem Manajemen Buku - Koleksi Buku Lengkap">
+    <meta name="keywords" content="buku, koleksi, manajemen, sistem informasi, perpustakaan">
+    <meta name="author" content="Praktikum SIWEB">
+    
+    <title>Koleksi Buku - Sistem Manajemen Buku</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/books.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.php">
+                <i class="bi bi-book-half"></i>
+                BookManager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">
+                            <i class="bi bi-house-fill"></i> Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="books.php">
+                            <i class="bi bi-collection-fill"></i> Koleksi Buku
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-book.php">
+                            <i class="bi bi-plus-circle-fill"></i> Tambah Buku
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link text-danger" href="controller/logout.php" title="Logout">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="books" class="products-section">
+            <div class="container-fluid px-4">
+                <div class="section-title mb-5">
+                    <h2>Koleksi Buku Lengkap</h2>
+                    <p>Jelajahi berbagai pilihan buku dari berbagai kategori</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image">
+                                <img src="assets/pemrograman web modern.png" alt="Pemrograman Web Modern">
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title">Pemrograman Web Modern</div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> Budi Santoso
+                                </div>
+                                <p class="book-description">Panduan lengkap belajar pemrograman web dengan teknologi HTML5, CSS3, dan JavaScript terkini.</p>
+                                <div class="book-meta">
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count">5</span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status available"><i class="bi bi-check-circle-fill"></i> Tersedia</span>
+                                <div class="book-footer-right">
+                                    <span>2024</span>
+                                    <button class="btn-pinjam" title="Pinjam Buku"><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" data-wishlist-btn="static-1" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image book-image-gradient-2">
+                                <img src="assets/algoritma dan strukdat.jpg" alt="Algoritma & Struktur Data">
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title">Algoritma & Struktur Data</div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> Siti Nurhayati
+                                </div>
+                                <p class="book-description">Memahami konsep dasar algoritma dan bagaimana mengimplementasikannya dalam berbagai bahasa pemrograman.</p>
+                                <div class="book-meta">
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count">0</span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status unavailable"><i class="bi bi-clock-fill"></i> Dipinjam</span>
+                                <div class="book-footer-right">
+                                    <span>2023</span>
+                                    <button class="btn-pinjam" title="Stok Habis" disabled><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" data-wishlist-btn="static-2" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image book-image-gradient-3">
+                                <img src="assets/database management system.jpg" alt="Database Management System">
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title">Database Management System</div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> Andi Wijayanto
+                                </div>
+                                <p class="book-description">Materi komprehensif tentang sistem manajemen database relasional dan pengoptimalan query SQL.</p>
+                                <div class="book-meta">
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count">3</span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status available"><i class="bi bi-check-circle-fill"></i> Tersedia</span>
+                                <div class="book-footer-right">
+                                    <span>2024</span>
+                                    <button class="btn-pinjam" title="Pinjam Buku"><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" data-wishlist-btn="static-3" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image book-image-gradient-4">
+                                <img src="assets/software.jpg" alt="Software Engineering Principles">
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title">Software Engineering Principles</div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> Dr. Rini Handayani
+                                </div>
+                                <p class="book-description">Prinsip-prinsip teknik perangkat lunak yang baik untuk mengembangkan aplikasi berkualitas tinggi.</p>
+                                <div class="book-meta">
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count">7</span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status available"><i class="bi bi-check-circle-fill"></i> Tersedia</span>
+                                <div class="book-footer-right">
+                                    <span>2024</span>
+                                    <button class="btn-pinjam" title="Pinjam Buku"><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" data-wishlist-btn="static-4" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image book-image-gradient-5">
+                                <img src="assets/AI Basic.jpg" alt="Artificial Intelligence Basics">
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title">Artificial Intelligence Basics</div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> Prof. Ahmad Suberi
+                                </div>
+                                <p class="book-description">Pengenalan dasar artificial intelligence, machine learning, dan aplikasinya dalam dunia nyata.</p>
+                                <div class="book-meta">
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count">0</span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status unavailable"><i class="bi bi-clock-fill"></i> Dipinjam</span>
+                                <div class="book-footer-right">
+                                    <span>2024</span>
+                                    <button class="btn-pinjam" title="Stok Habis" disabled><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" data-wishlist-btn="static-5" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image book-image-gradient-6">
+                                <img src="assets/web securty.png" alt="Web Security & Best Practices">
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title">Web Security & Best Practices</div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> I Ketut Wididana
+                                </div>
+                                <p class="book-description">Panduan keamanan aplikasi web meliputi enkripsi, autentikasi, otorisasi, dan pencegahan serangan cyber.</p>
+                                <div class="book-meta">
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count">4</span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status available"><i class="bi bi-check-circle-fill"></i> Tersedia</span>
+                                <div class="book-footer-right">
+                                    <span>2024</span>
+                                    <button class="btn-pinjam" title="Pinjam Buku"><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" data-wishlist-btn="static-6" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <template id="book-card-template">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="book-card">
+                            <div class="book-image">
+                                <img class="book-cover-img" src="" alt="">
+                                <div class="book-no-cover" style="display:none;">
+                                    <i class="bi bi-book"></i>
+                                    <small>Tanpa Cover</small>
+                                </div>
+                            </div>
+                            <div class="book-content">
+                                <div class="book-title"></div>
+                                <div class="book-author">
+                                    <i class="bi bi-pen-fill"></i> <span class="author-name"></span>
+                                </div>
+                                <p class="book-description"></p>
+                                <div class="book-meta">
+                                    <span class="book-category"><i class="bi bi-tag-fill"></i> <span class="category-name"></span></span>
+                                    <span class="book-copies"><i class="bi bi-stack"></i> <span class="copies-text"></span></span>
+                                    <span class="book-stock"><i class="bi bi-stack"></i> Stok: <span class="stock-count"></span></span>
+                                </div>
+                            </div>
+                            <div class="book-footer">
+                                <span class="book-status"><i class="bi"></i> <span class="status-text"></span></span>
+                                <div class="book-footer-right">
+                                    <span class="book-year"></span>
+                                    <button class="btn-pinjam" title="Pinjam Buku"><i class="bi bi-download"></i> Pinjam</button>
+                                    <button class="wishlist-btn" title="Tambah ke Wishlist"><i class="bi bi-heart"></i></button>
+                                    <button class="btn-delete-book" title="Hapus buku"><i class="bi bi-trash-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div id="addedBooksSection" style="display:none; margin-top: 4rem;">
+                    <div class="section-title mb-4">
+                        <h3>Buku yang Baru Ditambahkan</h3>
+                        <p>Buku-buku yang telah Anda tambahkan ke dalam sistem</p>
+                    </div>
+                    <div class="row g-4" id="dynamicBooksRow"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-info-circle"></i> Tentang Kami
+                </h4>
+                <p>Sistem Manajemen Buku adalah platform digital yang dirancang untuk memudahkan pengelolaan koleksi buku di perpustakaan atau organisasi Anda.</p>
+                <div class="footer-social">
+                    <a href="#" title="Facebook" aria-label="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" title="Twitter" aria-label="Twitter">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="#" title="Instagram" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-link-45deg"></i> Tautan Cepat
+                </h4>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="books.html">Koleksi Buku</a></li>
+                    <li><a href="add-book.html">Tambah Buku</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-resources"></i> Sumber Daya
+                </h4>
+                <ul>
+                    <li><a href="#">Panduan Pengguna</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <i class="bi bi-telephone-fill"></i> Kontak Kami
+                </h4>
+                <ul class="footer-contact-list">
+                    <li class="footer-contact-item">
+                        <i class="bi bi-envelope-fill"></i> 
+                        <a href="mailto:info@bookmanager.com">info@bookmanager.com</a>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i class="bi bi-telephone-fill"></i> 
+                        <a href="tel:+62123456789">+62 (123) 456-789</a>
+                    </li>
+                    <li>
+                        <i class="bi bi-geo-alt-fill"></i> 
+                        Jl. Teknologi No. 123, Jakarta, Indonesia
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Sistem Manajemen Buku. Semua bisa membaca.</p>
+            <p>Dikembangkan dengan sepenuh hati oleh Nick Bryan Andos Sianturi</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Daftar warna gradient untuk background cover buku dinamis
+        const gradientColors = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+            'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
+            'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)'
+        ];
+
+        // Memuat buku dinamis dari localStorage dan menampilkannya di halaman
+        function loadDynamicBooks() {
+            const books = JSON.parse(localStorage.getItem('bookCollection') || '[]');
+            const section = document.getElementById('addedBooksSection');
+            const container = document.getElementById('dynamicBooksRow');
+            const template = document.getElementById('book-card-template');
+
+            if (books.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+
+            books.forEach(function (book, index) {
+                const clone = template.content.cloneNode(true);
+                const imageDiv = clone.querySelector('.book-image');
+                const coverImg = clone.querySelector('.book-cover-img');
+                const noCover = clone.querySelector('.book-no-cover');
+
+                imageDiv.style.background = gradientColors[index % gradientColors.length];
+
+                if (book.cover) {
+                    coverImg.src = book.cover;
+                    coverImg.alt = book.title;
+                    noCover.style.display = 'none';
+                } else {
+                    coverImg.style.display = 'none';
+                    noCover.style.display = 'flex';
+                }
+
+                clone.querySelector('.book-title').textContent = book.title;
+                clone.querySelector('.author-name').textContent = book.author;
+                clone.querySelector('.book-description').textContent = book.description;
+                clone.querySelector('.category-name').textContent = book.category;
+                clone.querySelector('.copies-text').textContent = book.copy + ' salinan';
+
+                // Set stok dan status tombol pinjam untuk buku dinamis
+                clone.querySelector('.stock-count').textContent = book.copy;
+                const pinjamBtn = clone.querySelector('.btn-pinjam');
+                if (book.copy <= 0 || book.status !== 'Tersedia') {
+                    pinjamBtn.disabled = true;
+                    pinjamBtn.title = 'Stok Habis';
+                }
+
+                // Set data-book-id untuk manajemen stok di localStorage
+                clone.querySelector('.book-card').setAttribute('data-book-id', 'dynamic-' + book.id);
+
+                const statusClass = book.status === 'Tersedia' ? 'available' : 'unavailable';
+                const statusSpan = clone.querySelector('.book-status');
+                statusSpan.classList.add(statusClass);
+
+                const statusIcon = statusSpan.querySelector('i');
+                statusIcon.className = book.status === 'Tersedia'
+                    ? 'bi bi-check-circle-fill'
+                    : 'bi bi-clock-fill';
+
+                clone.querySelector('.status-text').textContent =
+                    book.status === 'Tersedia' ? 'Tersedia' : 'Dipinjam';
+
+                clone.querySelector('.book-year').textContent = book.year;
+
+                const wishlistBtn = clone.querySelector('.wishlist-btn');
+                wishlistBtn.setAttribute('data-wishlist-btn', 'dynamic-' + book.id);
+
+                const deleteBtn = clone.querySelector('.btn-delete-book');
+                deleteBtn.addEventListener('click', function () {
+                    deleteBook(book.id);
+                });
+
+                container.appendChild(clone);
+            });
+
+            if (window.updateWishlistUI) {
+                window.updateWishlistUI();
+            }
+        }
+
+        // Menghapus buku dari localStorage dan memperbarui tampilan
+        function deleteBook(id) {
+            if (!confirm('Apakah Anda yakin ingin menghapus buku ini?')) return;
+            let books = JSON.parse(localStorage.getItem('bookCollection') || '[]');
+            books = books.filter(function (b) { return b.id !== id; });
+            localStorage.setItem('bookCollection', JSON.stringify(books));
+            loadDynamicBooks();
+        }
+
+        // Muat buku dinamis saat halaman siap
+        document.addEventListener('DOMContentLoaded', function () {
+            loadDynamicBooks();
+        });
+
+        // Mengatur nav-link aktif sesuai halaman saat ini
+        function updateActiveNavLink() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(function (link) {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === 'books.html' || href === window.location.pathname.split('/').pop()) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Panggil saat halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
+        // Log informasi versi di console
+        console.log('%cSelamat datang di Koleksi Buku!', 'color: #3498db; font-size: 18px; font-weight: bold;');
+        console.log('%cVersi: 1.0.0', 'color: #27ae60; font-size: 14px;');
+    </script>
+    <script src="Js/script.js"></script>
+</body>
+</html>
